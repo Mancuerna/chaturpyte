@@ -27,7 +27,7 @@ def get_active_recordings():
             file_size = str(round(get_file_size(FILES[arco][0]), 2))
             start_at = FILES[arco][1].strftime("%H:%M:%S %m-%d-%Y")
             duration = current_stream_duration(FILES[arco][1])                
-            print(f'{Fore.GREEN}\u25FC {Fore.WHITE}{arco}:{Fore.GREEN} Online {Fore.RED}\u25B6 {Fore.WHITE}Recording.. {file_size}Gb {duration}min start {start_at}')
+            print(f'{Fore.GREEN}\u2192 {Fore.WHITE}{arco}:{Fore.GREEN} Online {Fore.RED}\u25B6 {Fore.WHITE}Recording.. {file_size}Gb {duration}min start {start_at}')
             
             
 def get_file_size(file):
@@ -57,7 +57,7 @@ def record_models():
                 
 def main():
     while True:
-        print(f'\n{datetime.datetime.now():%Y/%m/%d %H:%M:%S}')
+        print(f'{Fore.BLUE}\u267B {Fore.WHITE}{datetime.datetime.now():%Y/%m/%d %H:%M:%S}')
         get_model_list()
         record_models()
         get_active_recordings()
