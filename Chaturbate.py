@@ -3,6 +3,7 @@ import datetime
 from  colorama import Fore, Style
 import requests
 from pathlib import Path
+import threading
 
 
 class Chaturbate:
@@ -34,7 +35,12 @@ class Chaturbate:
         stream = ffmpeg.input(self.user_stream)
         stream = ffmpeg.output(stream, self.output_stream, c='copy', f='mp4', loglevel='quiet')
         try:
-            print(f'{Fore.GREEN}\u25CF {Fore.WHITE}{self.user_slug}:{Fore.GREEN} is online{Style.RESET_ALL} Start Recording...')
+            print(f'{Fore.GREEN}\u25CF {Fore.WHITE}{self.user_slug}:{Fore.GREEN} Online{Style.RESET_ALL} Start Recording..')
             ffmpeg.run(stream)
         except:
-            print(f'{Fore.RED}\u25CF {Fore.WHITE.RESET_ALL}{self.user_slug}:{Fore.RED}\u25CF Recording {Style.RESET_ALL} Stopped (not online or private show).')
+            print(f'{Fore.RED}\u25CF {Fore.WHITE}{self.user_slug}:{Fore.RED}\u25FC {Fore.WHITE}Recording  Stopped (not online or private show).')
+        finally:
+            #print(threading.currentThread().getName())
+            print(f'{Fore.RED}\u2190 {Fore.WHITE}{self.user_slug}:{Fore.CYAN}\u25FC {Fore.WHITE}Recording{Style.RESET_ALL} Stopped')
+            print(f'{Fore.RED}\u25CF {Fore.WHITE}{self.user_slug}:{Fore.RED} Offline.{Style.RESET_ALL}')
+
