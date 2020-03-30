@@ -21,9 +21,10 @@ class Chaturbate(threading.Thread):
         self.start_recording = ''
         self.time_format = time_format
         self.errors = None
-    
+        self.event = threading.Event()
+
     def run(self):
-        while not self.status and not self.errors:
+        while not self.status and not self.errors and not self.event.is_set():
             self._get_streams()
         if self.errors:
             print(f'{Fore.RED}\u25CF ERROR {Fore.WHITE}{self.user_slug}:{Fore.RED}{self.errors}{Style.RESET_ALL}')
@@ -38,6 +39,9 @@ class Chaturbate(threading.Thread):
             print(f'{Fore.GREEN}\u25CF {Fore.WHITE}{self.user_slug}:{Fore.GREEN} Online {Fore.YELLOW} Private {Style.RESET_ALL}')
             self.status = 'offline'
 
+    def stop(self):
+        self.event.set()
+    
     def _current_file_size(self):
         while True:
             try:

@@ -6,7 +6,7 @@ import time
 import datetime
 import os
 import threading
-
+import sys
 
 MODELS = queue.Queue()
 PATH = os.path.dirname(os.path.abspath(__file__))
@@ -50,13 +50,13 @@ def main():
         while True:
             print(f'{Fore.BLUE}\u267B {Fore.WHITE}{datetime.datetime.now().strftime(TIME_FORMAT)}')
             manager()
-            print(ACTIVE_FAKE)
             print (f'Current Cams {threading.active_count()-1}')
             time.sleep(TICKS)
     except KeyboardInterrupt:
         for t in ACTIVE_FAKE:
             ACTIVE_FAKE[t].stop()
-        print(f'{Fore.YELLOW}bb{Style.RESET_ALL}')
+        print(f'{Fore.YELLOW}bye{Style.RESET_ALL}')
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()
